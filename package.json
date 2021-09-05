@@ -11,7 +11,7 @@
     "discord.js": "^13.1.0"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node deploy-commands.js & node index.js"
   },
   "devDependencies": {
     "eslint": "^7.32.0"
