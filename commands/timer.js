@@ -24,8 +24,8 @@ module.exports = {
             } else {
                 interaction.editReply(`**${time}분 타이머** \`${minutes}분 ${seconds}초\``)
             }
-            leftTime -= 1
-        }, 1000)
+            leftTime -= 10
+        }, 10000)
 
 	},
 };

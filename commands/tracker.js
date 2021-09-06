@@ -61,12 +61,12 @@ module.exports = {
                     ...records,
                     [userId]: {
                             ...[userId],
-                            time: records[userId].time + 1 ,
+                            time: records[userId].time + 10 ,
                             timerId: timer,
                             name: interaction.user.username
                         }
                 }
-            }, 1000)
+            }, 10000)
         } else if (interaction.options.getSubcommand() === '종료') {
             const userId = interaction.user.id
             if (!userId) {
