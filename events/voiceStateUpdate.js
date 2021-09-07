@@ -28,7 +28,7 @@ module.exports = {
                     embeds: [
                         {
                             title: title,
-                            color: newState.member.displayHexColor,
+                            color: 0xDCE2E8,
                             author: {
                                 name: newState.member.user.username,
                                 icon_url: newState.member.user.avatarURL()
