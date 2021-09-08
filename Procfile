@@ -1,2 +1,1 @@
-web: echo "DISCORD BOT SERVER ON"
-service: npm start
+worker: npm start
