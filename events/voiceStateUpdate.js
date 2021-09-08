@@ -23,7 +23,7 @@ module.exports = {
         const newIsTarget = data.targetChannels.includes(newState.channelId)
 
         const sender = (title, description) => data.noticeChannels.forEach(ch => {
-            newState.member.client.channels.fetch(ch)
+            newState.member.guild.channels.fetch(ch)
                 .then(channel => channel.send({
                     embeds: [
                         {
@@ -74,9 +74,10 @@ module.exports = {
                 if (!newState.channelId || !newIsTarget) {
                     console.log(`${newState.member.user.username} Get Out ${oldState.channel.name}`)
                     const startTime = data.startTimes[newState.member.user.id]
+                    if (!startTIme) return
                     const milliSeconds = new Date().getTime() - startTime
                     data.todayTimes[newState.member.user.id] = (data.todayTimes[newState.member.user.id] || 0) + milliSeconds
-                    data.startTimes[newState.member.user.id] = 0
+                    delete data.startTimes[newState.member.user.id]
                     fs.writeFileSync('db.json', JSON.stringify(data))
                     sender("공부 종료", "공부 채널에서 나갔습니다. 공부 시간을 기록했습니다.")
                 }
