@@ -74,7 +74,7 @@ module.exports = {
                 if (!newState.channelId || !newIsTarget) {
                     console.log(`${newState.member.user.username} Get Out ${oldState.channel.name}`)
                     const startTime = data.startTimes[newState.member.user.id]
-                    if (startTIme) {
+                    if (startTime) {
                         const milliSeconds = new Date().getTime() - startTime
                         data.todayTimes[newState.member.user.id] = (data.todayTimes[newState.member.user.id] || 0) + milliSeconds
                         delete data.startTimes[newState.member.user.id]
