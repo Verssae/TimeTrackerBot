@@ -1,13 +1,7 @@
 const fs = require('fs')
 const { Permissions } = require('discord.js')
 const { SlashCommandBuilder } = require('@discordjs/builders');
-
-const timeformat = time => {
-    let hours = Math.floor(time / 3600) 
-    let minutes = Math.floor((time - hours * 3600) / 60) 
-    let seconds = (time - hours * 3600 - minutes * 60).toFixed(2)
-    return `${hours > 0 ? hours + '시간 ': ''}${minutes > 0 ? minutes + '분 ': ''}${seconds}초`
-}
+const { timeformat } = require('../utils')
 
 
 module.exports = {
@@ -35,7 +29,7 @@ module.exports = {
 
         await result.forEach(e=>{
             console.log(e)
-            interaction.client.users.fetch(e[0]).then(el => {
+            interaction.guild.users.fetch(e[0]).then(el => {
                 const value = timeformat(e[1]/1000)
                 results = [
                     ...results,

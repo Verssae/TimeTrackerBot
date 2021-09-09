@@ -1,12 +1,5 @@
 const fs = require('fs')
-
-
-const timeformat = time => {
-    let hours = Math.floor(time / 3600) 
-    let minutes = Math.floor((time - hours * 3600) / 60) 
-    let seconds = (time - hours * 3600 - minutes * 60).toFixed(2)
-    return `${hours > 0 ? hours + '시간 ': ''}${minutes > 0 ? minutes + '분 ': ''}${seconds}초`
-}
+const { timeformat } = require('../utils')
 
 module.exports = {
     name: 'voiceStateUpdate',
@@ -15,9 +8,9 @@ module.exports = {
         const dataJSON = dataBuffer.toString()
         const data = JSON.parse(dataJSON)
 
-        const idomsDataBuffer = fs.readFileSync('good.json')
-        const idomsDataJSON = idomsDataBuffer.toString()
-        const idomsData = JSON.parse(idomsDataJSON)
+        const resourcesBuffer = fs.readFileSync('resources.json')
+        const resourcesJSON = resourcesBuffer.toString()
+        const resources = JSON.parse(resourcesJSON)
 
         const oldIsTarget = data.targetChannels.includes(oldState.channelId)
         const newIsTarget = data.targetChannels.includes(newState.channelId)
@@ -35,7 +28,7 @@ module.exports = {
                             },
                             description: description,
                             thumbnail: {
-                                url: data.figures[Math.floor(Math.random()*data.figures.length)]
+                                url: resources.figures[Math.floor(Math.random()*resources.figures.length)]
                             },
                             fields: [
                                 {
@@ -47,7 +40,7 @@ module.exports = {
                                 url: 'https://cdn.discordapp.com/attachments/882280565770969140/884847850847076492/1550064396166.png'
                             },
                             footer: {
-                                text: idomsData.contents[Math.floor(Math.random()*idomsData.contents.length)],
+                                text: resources.contents[Math.floor(Math.random()*resources.contents.length)],
                                 icon_url: 'https://cdn.discordapp.com/attachments/883914249431318570/884851727168323584/4a379b5a3936aa15.png',
                             },
                         }
@@ -74,6 +67,7 @@ module.exports = {
                 if (!newState.channelId || !newIsTarget) {
                     console.log(`${newState.member.user.username} Get Out ${oldState.channel.name}`)
                     const startTime = data.startTimes[newState.member.user.id]
+                    
                     if (startTime) {
                         const milliSeconds = new Date().getTime() - startTime
                         data.todayTimes[newState.member.user.id] = (data.todayTimes[newState.member.user.id] || 0) + milliSeconds
